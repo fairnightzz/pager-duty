@@ -1,0 +1,20 @@
+version: '3.0'
+
+services:
+
+  localstack:
+    container_name: localstack_main
+    image: localstack/localstack:latest
+    network_mode: bridge
+    environment: 
+      - SERVICES=dynamodb
+      - DATA_DIR=/tmp/localstack/data
+      - AWS_DEFAULT_REGION=${DDB_LOCAL_REGION}
+      - EDGE_PORT=${DDB_PORT}
+      - KINESIS_PROVIDER=kinesalite
+      - HOST_TMP_FOLDER=${TMPDIR:-/tmp/}localstack
+    ports:
+      - '${DDB_PORT}:${DDB_PORT}'
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"

@@ -1,0 +1,13 @@
+version: '3.0'
+
+services:
+
+  queue:
+    container_name: sqs
+    image: softwaremill/elasticmq-native:latest
+    network_mode: bridge
+    ports:
+      - '${SQS_PORT}:9324'
+      - '${SQS_INTERFACE_PORT}:9325'
+    volumes:
+      - "./custom.conf:/opt/elasticmq.conf"
